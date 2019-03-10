@@ -15,9 +15,18 @@
     <version>1.0-SNAPSHOT</version>
     <description>葛林组件类库</description>
 
+    <properties>
+        <gl-tool.version>1.0-SNAPSHOT</gl-tool.version>
+    </properties>
+
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.greelee</groupId>
+            <artifactId>gl-tool.util</artifactId>
+            <version>${gl-tool.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.mybatis</groupId>
