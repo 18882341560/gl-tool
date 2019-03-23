@@ -39,14 +39,14 @@ public class ExcelNumericFormat {
             // dateFormat.setDefaultNumberFormat();
             // return dateFormat.formatCellValue(cell);
             Date date = cell.getDateCellValue();
-            return DateFormatUtils.format(date, DateConst.DEFAULT_DATE_FORMAT);
+            return DateFormatUtils.format(date, DateConst.DEFAULT_LOCAL_DATE_TIME);
         } else {
             double doubleVal = cell.getNumericCellValue();
             int format = cell.getCellStyle().getDataFormat();
             if (DATE_INDEX.contains(format)) {
                 // 日期
                 Date date = DateUtil.getJavaDate(doubleVal);
-                return DateFormatUtils.format(date, DateConst.DEFAULT_DATE_FORMAT);
+                return DateFormatUtils.format(date, DateConst.DEFAULT_LOCAL_DATE_TIME);
             } else if (TIME_INDEX.contains(format)) {
                 // 时间
                 Date date = DateUtil.getJavaDate(doubleVal);

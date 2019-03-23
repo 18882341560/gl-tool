@@ -29,7 +29,7 @@ public class LocalDateTimeFormatter implements Formatter<LocalDateTime> {
         }
         text = text.trim();
         if (text.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
-            return LocalDateTime.parse(text, DateConst.DEFAULT_DATE_TIME);
+            return LocalDateTime.parse(text, DateConst.DEFAULT_DATE_TIME_FORMAT);
         }
         if (text.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")) {
             return LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
@@ -39,6 +39,6 @@ public class LocalDateTimeFormatter implements Formatter<LocalDateTime> {
     
     @Override
     public String print(LocalDateTime object, Locale locale) {
-        return object.format(DateTimeFormatter.ofPattern(DateConst.DEFAULT_DATE_FORMAT));
+        return object.format(DateTimeFormatter.ofPattern(DateConst.DEFAULT_LOCAL_DATE_TIME));
     }
 }

@@ -1,15 +1,13 @@
 package gl.tool.util.time;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import gl.tool.util.model.SectionDateTime;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author gl
@@ -25,7 +23,7 @@ public class DateUtil {
      * 旧的时间类转化为字符串
      * @param date 日期
      * @param pattern 格式
-     * @return
+     * @return 时间字符串
      */
     public static String getDateString(Date date,String pattern){
         if(date == null){
@@ -41,21 +39,21 @@ public class DateUtil {
      * @param second 秒
      * @param startTime 开始时间
      * @param endTime 结束时间
-     * @return
+     * @return 时间段集合
      */
-    public static  List<Map<String,String>> cutDateTime(long second, LocalDateTime startTime, LocalDateTime endTime){
+    public static  List<SectionDateTime> cutDateTime(long second, LocalDateTime startTime, LocalDateTime endTime){
 
-        DateTimeFormatter formatter = DateConst.DEFAULT_DATE_TIME;
-        List<Map<String,String>> list = Lists.newArrayList();
-
+        List<SectionDateTime> list = Lists.newArrayList();
         while (startTime.isBefore(endTime)){
             LocalDateTime plusSeconds = startTime.plusSeconds(second);
-            String formatEnd = formatter.format(plusSeconds);
-            String formatStart = formatter.format(startTime);
-            Map<String,String> map = Maps.newHashMap();
-            map.put("startTime",formatStart);
-            map.put("endTime",formatEnd);
-            list.add(map);
+            if(plusSeconds.isAfter(endTime)){
+                plusSeconds = endTime;
+            }
+            SectionDateTime sectionDateTime = SectionDateTime.builder()
+                    .startTime(startTime)
+                    .endTime(plusSeconds)
+                    .build();
+            list.add(sectionDateTime);
             startTime = plusSeconds;
         }
         return list;
