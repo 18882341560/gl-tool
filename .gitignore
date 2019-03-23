@@ -2,3 +2,5 @@
 target/
 *.iml
 
+/.idea/dictionaries/gelin.xml
+/.idea/smartfox_info.xml
