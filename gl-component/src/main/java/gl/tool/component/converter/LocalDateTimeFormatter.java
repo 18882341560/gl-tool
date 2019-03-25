@@ -1,12 +1,12 @@
 package gl.tool.component.converter;
 
 import gl.tool.util.time.DateConst;
-import org.apache.commons.lang3.StringUtils;
+import gl.tool.util.time.DateUtil;
 import org.springframework.format.Formatter;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-import java.time.LocalDate;
+import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -21,24 +21,14 @@ import java.util.Locale;
 @Component
 public class LocalDateTimeFormatter implements Formatter<LocalDateTime> {
 
-    
+
     @Override
-    public LocalDateTime parse(String text, Locale locale) throws ParseException {
-        if (StringUtils.isBlank(text)) {
-            return null;
-        }
-        text = text.trim();
-        if (text.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
-            return LocalDateTime.parse(text, DateConst.DEFAULT_DATE_TIME_FORMAT);
-        }
-        if (text.matches("^\\d{4}-\\d{1,2}-\\d{1,2}$")) {
-            return LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
-        }
-        throw new IllegalArgumentException("非法值:'" + text + "'");
+    public LocalDateTime parse(@Nonnull String text, @Nullable Locale locale)  {
+        return DateUtil.getDateTimeByString(text);
     }
-    
+
     @Override
-    public String print(LocalDateTime object, Locale locale) {
+    public String print(@Nonnull LocalDateTime object,@Nullable Locale locale) {
         return object.format(DateTimeFormatter.ofPattern(DateConst.DEFAULT_LOCAL_DATE_TIME));
     }
 }
