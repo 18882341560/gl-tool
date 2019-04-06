@@ -63,6 +63,11 @@ class Brackets {
     }
 
 
+    /**
+     * 将字符串中的括号提取出来
+     * @param s 参数
+     * @return 括号字符串
+     */
     private static String getBrackets(String s) {
         StringBuilder sb = new StringBuilder();
         char[] chars = s.toCharArray();
